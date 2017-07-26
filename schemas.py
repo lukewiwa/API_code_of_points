@@ -4,7 +4,7 @@ import os
 
 db = Database()
 
-try:
+if os.environ.get("APP_LOCATION") == "heroku":
     url = urlparse(os.environ["DATABASE_URL"])
     db.bind(
         'postgres',
@@ -13,7 +13,7 @@ try:
         host=url.hostname,
         database=url.path[1:],
     )
-except KeyError:
+else:
     db.bind(
         'sqlite',
         '../code_of_points.db',
@@ -21,4 +21,8 @@ except KeyError:
     )
 
 class Skill(db.Entity):
-    # insert skills schema
+    app = Required(str)
+    eg = Required(str)
+    value = Required(str)
+    index = Required(int)
+    description = Required(str)
