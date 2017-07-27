@@ -1,10 +1,21 @@
-from bottle import run, debug, get, HTTPError, error, request, response
+from bottle import run, debug, get, HTTPError, error, request, response, app
+from pony.orm import db_session, select
+from schemas import db, Skill
 import json
+import os
+
+db.conn()
+app = app()
 
 @get("/")
 @get("/skills")
+@db_session
 def skills():
-    return {"hello": "world"}
+    query = dict(request.query)
+    skills = select(s for s in Skill).filter(**query)
+    skills = (s.to_dict() for s in skills)
+    result = {"skills": list(skills)}
+    return result
 
 @get('/test')
 def test():
@@ -27,7 +38,6 @@ if __name__ == "__main__":
             port=int(os.environ.get("PORT", 5000)),
         )
     else:
-        sql_debug(True)
         debug(True)
         run(app=app, server='gunicorn', host='localhost', reloader=True)
 
