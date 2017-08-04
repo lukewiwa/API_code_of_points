@@ -1,4 +1,5 @@
-from bottle import run, debug, get, HTTPError, error, request, response, app
+from bottle import run, debug, get, HTTPError, error
+from bottle import request, response, app, hook
 from pony.orm import db_session, select
 from schemas import db, Skill
 import json
@@ -8,6 +9,12 @@ from setup import Setup
 db.conn()
 app = app()
 
+@hook('after_request')
+def enable_cors():
+    response.headers['Access-Control-Allow-Origin'] = 'http://www.lukewiwatowski.com'
+    response.headers['Access-Control-Allow-Methods'] = 'GET'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+
 @get("/")
 @get("/skills")
 @db_session
@@ -15,13 +22,8 @@ def skills():
     query = dict(request.query)
     skills = select(s for s in Skill).filter(**query)
     skills = (s.to_dict() for s in skills)
-    result = {"skills": list(skills)}
+    result = {'success': True, "skills": list(skills)}
     return result
-
-@get('/test')
-def test():
-    query = dict(request.query)
-    return query
 
 @error(404)
 def error404(error):
