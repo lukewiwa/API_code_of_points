@@ -1,4 +1,4 @@
-from pony.orm import *
+from pony.orm import Database, Required, sql_debug
 from urllib.parse import urlparse
 import os
 

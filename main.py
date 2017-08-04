@@ -33,7 +33,7 @@ def error404(error):
 if __name__ == "__main__":
     setup = Setup("code_of_points_MAG_2020.csv")
     setup.populate()
-    
+
     if os.environ.get('APP_LOCATION') == 'heroku':
         run(
             app=app,
