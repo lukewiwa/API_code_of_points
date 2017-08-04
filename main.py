@@ -3,6 +3,7 @@ from pony.orm import db_session, select
 from schemas import db, Skill
 import json
 import os
+from setup import Setup
 
 db.conn()
 app = app()
@@ -30,6 +31,9 @@ def error404(error):
 
 
 if __name__ == "__main__":
+    setup = Setup("code_of_points_MAG_2020.csv")
+    setup.populate()
+    
     if os.environ.get('APP_LOCATION') == 'heroku':
         run(
             app=app,

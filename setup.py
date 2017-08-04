@@ -2,16 +2,18 @@ from schemas import db, Skill
 from pony.orm import *
 import csv
 
-db.conn()
+class Setup:
+    def __init__(self, csv):
+        self.csv = csv
 
-def get_skills():
-    with open("code_of_points_MAG_2020.csv") as file:
-        skills = csv.DictReader(file)
-        for skill in skills:
-            yield skill
+    def get_skills(self):
+        with open(self.csv) as file:
+            skills = csv.DictReader(file)
+            for skill in skills:
+                yield skill
 
-@db_session
-def populate(gen):
-    if not exists(s for s in Skill):
-        for i in gen:
-            Skill(**i)
+    def populate(self):
+        with db_session:
+            if not exists(s for s in Skill):
+                for i in self.get_skills():
+                    Skill(**i)
