@@ -19,8 +19,8 @@ An implementation of a REST API using the Bottle framework and PonyORM as the da
 
    **Optional:**
  
-   `app=Floor Exercise|Pommel Horse|Rings|Vault|Parallel Bars|Horizontal Bar`
-   `eg=[integer]`
+   `app=Floor Exercise|Pommel Horse|Rings|Vault|Parallel Bars|Horizontal Bar`  
+   `eg=[integer]`  
    `value=[A..I]`
 
 * **Data Params**
