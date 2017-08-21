@@ -2,7 +2,7 @@
 
 An implementation of a REST API using the Bottle framework and PonyORM as the database abstraction layer. 
 
-**Show User**
+**Show Skills**
 ----
   Returns json data about a set of skills.
 
