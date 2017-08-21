@@ -4,7 +4,7 @@ An implementation of a REST API using the Bottle framework and PonyORM as the da
 
 **Show User**
 ----
-  Returns json data about a single user.
+  Returns json data about a set of skills.
 
 * **URL**
 
