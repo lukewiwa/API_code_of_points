@@ -11,7 +11,7 @@ app = app()
 
 @hook('after_request')
 def enable_cors():
-    response.headers['Access-Control-Allow-Origin'] = 'http://www.lukewiwatowski.com'
+    response.headers['Access-Control-Allow-Origin'] = 'null'
     response.headers['Access-Control-Allow-Methods'] = 'GET'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
 
@@ -45,5 +45,5 @@ if __name__ == "__main__":
         )
     else:
         debug(True)
-        run(app=app, server='gunicorn', host='localhost', reloader=True)
+        run(app=app, host='localhost', reloader=True)
 
