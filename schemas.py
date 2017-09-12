@@ -27,7 +27,7 @@ db = Db()
 
 class Skill(db.Entity):
     app = Required(str)
-    eg = Required(str)
+    eg = Required(int)
     value = Required(str)
     index = Required(int)
     description = Required(str)
