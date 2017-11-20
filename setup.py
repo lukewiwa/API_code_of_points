@@ -1,6 +1,6 @@
-from schemas import db, Skill
-from pony.orm import *
 import csv
+from schemas import Skill
+from pony.orm import exists, db_session
 
 class Setup:
     def __init__(self, csv):

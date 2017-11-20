@@ -3,3 +3,5 @@ __pycache__
 access.log
 error.log
 code_of_points.db
+.vscode
+code_of_points.sqlite

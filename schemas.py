@@ -1,6 +1,6 @@
-from pony.orm import Database, Required, sql_debug
-from urllib.parse import urlparse
 import os
+from urllib.parse import urlparse
+from pony.orm import Database, Required, sql_debug
 
 class Db(Database):
     def conn(self):
@@ -16,11 +16,11 @@ class Db(Database):
         else:
             self.bind(
                 'sqlite',
-                './code_of_points.db',
+                './code_of_points.sqlite',
                 create_db=True,
             )
             sql_debug(True)
-        
+    
         self.generate_mapping(create_tables=True)
 
 db = Db()
@@ -31,4 +31,3 @@ class Skill(db.Entity):
     value = Required(str)
     index = Required(int)
     description = Required(str)
-

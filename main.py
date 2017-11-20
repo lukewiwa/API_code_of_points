@@ -1,9 +1,9 @@
-from bottle import run, debug, get, HTTPError, error
+import json
+import os
+from bottle import run, debug, get, error
 from bottle import request, response, app, hook
 from pony.orm import db_session, select
 from schemas import db, Skill
-import json
-import os
 from setup import Setup
 
 db.conn()
@@ -46,4 +46,3 @@ if __name__ == "__main__":
     else:
         debug(True)
         run(app=app, host='localhost', reloader=True)
-
