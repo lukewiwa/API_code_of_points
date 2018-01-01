@@ -3,8 +3,8 @@ from urllib.parse import urlparse
 import os
 
 class Db(Database):
-    def conn(self):
-        if os.environ.get("APP_LOCATION") == "heroku":
+    def conn(self, env="test", debug=False):
+        if env is "prod":
             url = urlparse(os.environ["DATABASE_URL"])
             self.bind(
                 'postgres',
@@ -16,11 +16,11 @@ class Db(Database):
         else:
             self.bind(
                 'sqlite',
-                './code_of_points.db',
+                '../code_of_points.sqlite',
                 create_db=True,
             )
-            sql_debug(True)
-        
+            sql_debug(debug)
+
         self.generate_mapping(create_tables=True)
 
 db = Db()
@@ -31,4 +31,3 @@ class Skill(db.Entity):
     value = Required(str)
     index = Required(int)
     description = Required(str)
-

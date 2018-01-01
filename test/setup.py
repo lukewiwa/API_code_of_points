@@ -1,5 +1,5 @@
-from schemas import db, Skill
-from pony.orm import *
+from modules.schemas import db, Skill
+from pony.orm import db_session, exists
 import csv
 
 class Setup:

@@ -1,17 +1,16 @@
 from bottle import run, debug, get, HTTPError, error
 from bottle import request, response, app, hook
 from pony.orm import db_session, select
-from schemas import db, Skill
+from modules.schemas import db, Skill
 import json
 import os
-from setup import Setup
+from test.setup import Setup
 
-db.conn()
 app = app()
 
 @hook('after_request')
 def enable_cors():
-    response.headers['Access-Control-Allow-Origin'] = 'http://www.lukewiwatowski.com'
+    response.headers['Access-Control-Allow-Origin'] = 'null'
     response.headers['Access-Control-Allow-Methods'] = 'GET'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
 
@@ -33,10 +32,10 @@ def error404(error):
 
 
 if __name__ == "__main__":
-    setup = Setup("code_of_points_MAG_2020.csv")
-    setup.populate()
-
+    setup = Setup("./test/code_of_points_MAG_2020.csv")
     if os.environ.get('APP_LOCATION') == 'heroku':
+        db.conn(env="prod")
+        setup.populate()
         run(
             app=app,
             server='gunicorn',
@@ -44,6 +43,10 @@ if __name__ == "__main__":
             port=int(os.environ.get("PORT", 5000)),
         )
     else:
+        db.conn(env="test", debug=True)
+        db.drop_all_tables(with_all_data=True)
+        db.create_tables()
+        setup.populate()
         debug(True)
         run(app=app, host='localhost', reloader=True)
 
