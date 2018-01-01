@@ -1,4 +1,10 @@
+attrs==17.4.0
+boddle==0.2.7
 bottle==0.12.13
 gunicorn==19.7.1
+pluggy==0.6.0
 pony==0.7.2
 psycopg2==2.7.3
+py==1.5.2
+pytest==3.3.1
+six==1.11.0
