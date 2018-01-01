@@ -1,6 +1,7 @@
 from modules.schemas import db, Skill
 from pony.orm import db_session, exists
 import csv
+import pytest
 
 class Setup:
     def __init__(self, csv):
@@ -17,3 +18,18 @@ class Setup:
             if not exists(s for s in Skill):
                 for i in self.get_skills():
                     Skill(**i)
+
+@pytest.fixture(scope="session")
+def db_conn():
+    try:
+        db.conn(env="test")
+    except TypeError:
+        pass
+    yield db
+
+@pytest.fixture(scope="function")
+def database():
+    db.drop_all_tables(with_all_data=True)
+    db.create_tables()
+    populate_db()
+    yield db
