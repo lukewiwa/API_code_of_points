@@ -1,10 +1,10 @@
-from pony.orm import Database, Required, sql_debug
-from urllib.parse import urlparse
 import os
+from urllib.parse import urlparse
+from pony.orm import Database, Required, sql_debug
 
 class Db(Database):
     def conn(self, env="test", debug=False):
-        if env is "prod":
+        if env == "prod":
             url = urlparse(os.environ["DATABASE_URL"])
             self.bind(
                 'postgres',

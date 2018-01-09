@@ -1,11 +1,11 @@
+import csv
 from modules.schemas import db, Skill
 from pony.orm import db_session, exists
-import csv
 import pytest
 
 class Setup:
-    def __init__(self, csv):
-        self.csv = csv
+    def __init__(self, csv_file):
+        self.csv = csv_file
 
     def get_skills(self):
         with open(self.csv) as file:
