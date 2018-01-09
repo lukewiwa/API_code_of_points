@@ -29,7 +29,8 @@ def db_conn():
 
 @pytest.fixture(scope="function")
 def database():
+    setup = Setup("./code_of_points_MAG_2020.csv")
     db.drop_all_tables(with_all_data=True)
     db.create_tables()
-    populate_db()
+    setup.populate()
     yield db
