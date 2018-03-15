@@ -1,3 +1,4 @@
+"""Routes for API calls"""
 from bottle import run, debug, get, HTTPError, error
 from bottle import request, response, app, hook
 from pony.orm import db_session, select
@@ -18,6 +19,7 @@ def enable_cors():
 @get("/skills")
 @db_session
 def skills():
+    """ Return JSON of all skills with filtering using query string """
     query = dict(request.query)
     skills = select(s for s in Skill).filter(**query)
     skills = (s.to_dict() for s in skills)

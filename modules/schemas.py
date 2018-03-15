@@ -3,7 +3,13 @@ from urllib.parse import urlparse
 from pony.orm import Database, Required, sql_debug
 
 class Db(Database):
+    """
+    Subclass database to add seperate prod and test connections
+    """
     def conn(self, env="test", debug=False):
+        """
+        Return prod or test DB connections
+        """
         if env == "prod":
             url = urlparse(os.environ["DATABASE_URL"])
             self.bind(
@@ -26,6 +32,7 @@ class Db(Database):
 db = Db()
 
 class Skill(db.Entity):
+    """ Skill database entity """
     app = Required(str)
     eg = Required(int)
     value = Required(str)
