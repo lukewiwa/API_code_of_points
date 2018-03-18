@@ -1,3 +1,4 @@
+""" Models for database objects """
 import os
 from urllib.parse import urlparse
 from pony.orm import Database, Required, sql_debug
